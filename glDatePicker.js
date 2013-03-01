@@ -342,7 +342,7 @@
 				}
 
 				// Hide calendar if the target element isn't visible
-				if(!el.is(':visible')) { calendar.hide(); }
+				if(!options.showAlways && !el.is(':visible')) { calendar.hide(); }
 
 				// Add core classes and remove calendar's children
 				calendar
