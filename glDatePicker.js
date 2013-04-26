@@ -285,7 +285,7 @@
 					if(userList) {
 						var newList = [];
 						$.each(userList, function(i, v) {
-							if(v >= min && v <= max && newList.indexOf(v) < 0) {
+							if(v >= min && v <= max && newList._indexOf(v) < 0) {
 								newList.push(v);
 							}
 						});
@@ -342,7 +342,8 @@
 				}
 
 				// Hide calendar if the target element isn't visible
-				if(!options.showAlways && !el.is(':visible')) { calendar.hide(); }
+				//MOFIFIED  				
+				// if(!el.is(':visible')) { calendar.hide(); }
 
 				// Add core classes and remove calendar's children
 				calendar
@@ -359,8 +360,8 @@
 						left: (elPos.left + options.calendarOffset.x) + 'px'
 					});
 				};
-				$(window).resize(onResize);
-				onResize();
+				// $(window).resize(onResize);
+				// onResize();
 
 				// Create variables for cells
 				var cellCSS =
@@ -405,9 +406,9 @@
 						var dateYear = dateVal.year;
 
 						// Find the month first
-						if(selectableMonths.indexOf(dateMonth) != -1) {
+						if(selectableMonths._indexOf(dateMonth) != -1) {
 							// If year is in our collection, break...
-							if(selectableYears.indexOf(dateYear) != -1) {
+							if(selectableYears._indexOf(dateYear) != -1) {
 								break;
 							}
 							else {
@@ -593,9 +594,9 @@
 
 							// If not active or if not within selectableMonths, set to noday otherwise evaluate accordingly
 							if(!isSelectable ||
-								selectableYears.indexOf(cellDateVal.year) < 0 ||
-								selectableMonths.indexOf(cellDateVal.month) < 0 ||
-								selectableDOW.indexOf(cellDateVal.day) < 0) {
+								selectableYears._indexOf(cellDateVal.year) < 0 ||
+								selectableMonths._indexOf(cellDateVal.month) < 0 ||
+								selectableDOW._indexOf(cellDateVal.day) < 0) {
 								cellClass = 'noday';
 							}
 							else {
@@ -730,7 +731,7 @@
 
 				// Populate month select
 				$.each(monthNames, function(i, v) {
-					if(options.allowMonthSelect && selectableMonths.indexOf(i) != -1) {
+					if(options.allowMonthSelect && selectableMonths._indexOf(i) != -1) {
 						var o = $('<option/>').html(v).attr('value', i);
 						if(i == firstDateMonth) { o.attr('selected', 'selected');}
 						monthSelect.append(o);
@@ -809,6 +810,10 @@
 				time: this.getTime(),
 				day: this.getDay()
 			};
+		};
+
+		Array.prototype._indexOf = function(value) {
+			return $.inArray(value, this);
 		}
 	})();
 })();
